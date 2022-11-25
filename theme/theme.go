@@ -60,14 +60,14 @@ func (b *Button) OnNav(ctx app.Context) {
 // SwitchToLightMode switches the app to light mode
 func (b *Button) SwitchToLightMode() {
 	b.SetState(false)
-	app.Window().Get("document").Get("documentElement").Get("dataset").Set("color-scheme", "light")
+	app.Window().Get("document").Get("documentElement").Get("dataset").Set("colorScheme", "light")
 	b.Save()
 }
 
 // SwitchToDarkMode switches the app to dark mode
 func (b *Button) SwitchToDarkMode() {
 	b.SetState(true)
-	app.Window().Get("document").Get("documentElement").Get("dataset").Set("color-scheme", "dark")
+	app.Window().Get("document").Get("documentElement").Get("dataset").Set("colorScheme", "dark")
 	b.Save()
 }
 
