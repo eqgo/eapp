@@ -12,20 +12,24 @@ import (
 // Button is a button to toggle the theme
 type Button struct {
 	app.Compo
-	ID            string // ID is the ID of the button
-	Class         string // Class is the string-separated list of classes to apply to the button
-	lightModeBody app.UI // lightModeBody is the body of the button when in light mode
-	darkModeBody  app.UI // darkModeBody is the body of the button when in dark mode
-	darkMode      bool
+	ID             string // ID is the ID of the button
+	Class          string // Class is the string-separated list of classes to apply to the button
+	LightModeTitle string // LightModeTitle is the title of the button when in light mode
+	DarkModeTitle  string // DarkModeTitle is the title of the button when in dark mode
+	LightModeBody  app.UI // LightModeBody is the body of the button when in light mode
+	DarkModeBody   app.UI // DarkModeBody is the body of the button when in dark mode
+	darkMode       bool
 }
 
-// New makes a new theme button with the given id, classes, light mode body, and dark mode body
-func New(id, class string, lightModeBody, darkModeBody app.UI) *Button {
+// New makes a new theme button with the given id, classes, light mode title, dark mode title, light mode body, and dark mode body
+func New(id, class, lightModeTitle, darkModeTitle string, lightModeBody, darkModeBody app.UI) *Button {
 	return &Button{
-		ID:            id,
-		Class:         class,
-		lightModeBody: lightModeBody,
-		darkModeBody:  darkModeBody,
+		ID:             id,
+		Class:          class,
+		LightModeTitle: lightModeTitle,
+		DarkModeTitle:  darkModeTitle,
+		LightModeBody:  lightModeBody,
+		DarkModeBody:   darkModeBody,
 	}
 }
 
@@ -35,7 +39,8 @@ func (b *Button) Render() app.UI {
 		return app.Button().
 			ID(b.ID).
 			Class(b.Class).
-			Body(b.darkModeBody).
+			Title(b.DarkModeTitle).
+			Body(b.DarkModeBody).
 			DataSet("color-scheme", "dark").
 			OnClick(func(ctx app.Context, e app.Event) {
 				b.SwitchToLightMode()
@@ -44,7 +49,8 @@ func (b *Button) Render() app.UI {
 	return app.Button().
 		ID(b.ID).
 		Class(b.Class).
-		Body(b.lightModeBody).
+		Title(b.LightModeTitle).
+		Body(b.LightModeBody).
 		DataSet("color-scheme", "light").
 		OnClick(func(ctx app.Context, e app.Event) {
 			b.SwitchToDarkMode()

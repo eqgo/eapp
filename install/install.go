@@ -8,16 +8,18 @@ type Button struct {
 	app.Compo
 	ID        string // ID is the ID of the button
 	Class     string // Class is the string-separated list of classes to apply to the button
-	body      app.UI // body is the body of the button
+	Title     string // Title is the title of the button
+	Body      app.UI // Body is the body of the button
 	available bool
 }
 
-// New makes a new install button with the given id, class, and body
-func New(id, class string, body app.UI) *Button {
+// New makes a new install button with the given id, class, title, and body
+func New(id, class, title string, body app.UI) *Button {
 	return &Button{
 		ID:    id,
 		Class: class,
-		body:  body,
+		Title: title,
+		Body:  body,
 	}
 }
 
@@ -27,7 +29,8 @@ func (b *Button) Render() app.UI {
 		return app.Button().
 			ID(b.ID).
 			Class(b.Class).
-			Body(b.body).
+			Title(b.Title).
+			Body(b.Body).
 			OnClick(b.OnClick)
 	}
 	return app.Text("")
