@@ -1,3 +1,5 @@
+// Package theme provides a customizable theme toggle button.
+// The theme toggle button sets the data-color-scheme attribute of the root html element and the button.
 package theme
 
 import (
@@ -12,18 +14,18 @@ type Button struct {
 	app.Compo
 	ID            string // ID is the ID of the button
 	Class         string // Class is the string-separated list of classes to apply to the button
-	LightModeText string // LightModeText is the text of the button when in light mode
-	DarkModeText  string // DarkModeText is the text of the button when in dark mode
+	lightModeBody app.UI // lightModeBody is the body of the button when in light mode
+	darkModeBody  app.UI // darkModeBody is the body of the button when in dark mode
 	darkMode      bool
 }
 
-// New makes a new theme button with the given id, classes, light mode text, and dark mode text
-func New(id, class, lightModeText, darkModeText string) *Button {
+// New makes a new theme button with the given id, classes, light mode body, and dark mode body
+func New(id, class string, lightModeBody, darkModeBody app.UI) *Button {
 	return &Button{
 		ID:            id,
 		Class:         class,
-		LightModeText: lightModeText,
-		DarkModeText:  darkModeText,
+		lightModeBody: lightModeBody,
+		darkModeBody:  darkModeBody,
 	}
 }
 
@@ -33,8 +35,8 @@ func (b *Button) Render() app.UI {
 		return app.Button().
 			ID(b.ID).
 			Class(b.Class).
-			Text(b.DarkModeText).
-			DataSet("theme", "dark").
+			Body(b.darkModeBody).
+			DataSet("color-scheme", "dark").
 			OnClick(func(ctx app.Context, e app.Event) {
 				b.SwitchToLightMode()
 			})
@@ -42,8 +44,8 @@ func (b *Button) Render() app.UI {
 	return app.Button().
 		ID(b.ID).
 		Class(b.Class).
-		Text(b.LightModeText).
-		DataSet("theme", "light").
+		Body(b.lightModeBody).
+		DataSet("color-scheme", "light").
 		OnClick(func(ctx app.Context, e app.Event) {
 			b.SwitchToDarkMode()
 		})
@@ -58,14 +60,14 @@ func (b *Button) OnNav(ctx app.Context) {
 // SwitchToLightMode switches the app to light mode
 func (b *Button) SwitchToLightMode() {
 	b.SetState(false)
-	app.Window().Get("document").Get("documentElement").Get("dataset").Set("theme", "light")
+	app.Window().Get("document").Get("documentElement").Get("dataset").Set("color-scheme", "light")
 	b.Save()
 }
 
 // SwitchToDarkMode switches the app to dark mode
 func (b *Button) SwitchToDarkMode() {
 	b.SetState(true)
-	app.Window().Get("document").Get("documentElement").Get("dataset").Set("theme", "dark")
+	app.Window().Get("document").Get("documentElement").Get("dataset").Set("color-scheme", "dark")
 	b.Save()
 }
 

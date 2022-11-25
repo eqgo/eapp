@@ -1,6 +1,7 @@
 # eapp
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/eqgo/eapp.svg)](https://pkg.go.dev/github.com/eqgo/eapp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/eqgo/eapp)](https://goreportcard.com/report/github.com/eqgo/eapp)
 
 Package eapp provides common, useful extensions of the [go-app package](https://go-app.dev).
 
